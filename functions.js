@@ -2,7 +2,7 @@
 
 
 // Získať uložené mená
-const getSavedNames = function (){
+const getSavedNames =  () => {
   const myNames = localStorage.getItem("names")
 
   if (myNames !== null){
@@ -17,14 +17,14 @@ const getSavedNames = function (){
 
 
 // uloženie mien
-const saveNames = function(oneName){
+const saveNames = (oneName) => { // prepis na šípkovú notáciu
     localStorage.setItem("names", JSON.stringify(oneName))
 }
 
 
 // generovanie html štruktúry, ktorú umiestnime do stránky po kliknutí na tlačídlo vypíš + použijeme ju tiež pre vypísanie nových informácii z localStorage, keď nejaké meno vymažeme pomocou tlačídla "Vymazať meno"
 
-const generateHTMLstructure = function(oneName){
+const generateHTMLstructure = (oneName) => { // prepis na šípkovú notáciu
     const newDiv = document.createElement("div")
     const newLink = document.createElement("a")
     const button = document.createElement("button")
@@ -34,7 +34,7 @@ const generateHTMLstructure = function(oneName){
     newDiv.appendChild(button)
 
 
-    button.addEventListener("click", function(event){
+    button.addEventListener("click", (event) => { // prepis na šípkovú notáciu
         removeNames(names, oneName.id)
         saveNames(names) // vytvorenie alebo upgradovanie dat v localStorage
         toListAgain()
@@ -59,10 +59,10 @@ const generateHTMLstructure = function(oneName){
 
 // podľa ID nájdeme index daného mena a pomocou slice ho odstraníme
 
-const removeNames = function(ourNames, id){
-    const index = ourNames.findIndex(function(nameWantToCheck){
-        return nameWantToCheck.id === id
-    })
+const removeNames = (ourNames, id) => { // prepis na šípkovú notáciu
+    const index = ourNames.findIndex((nameWantToCheck) => 
+         nameWantToCheck.id === id
+    )
 
     if(index > -1){
         ourNames.splice(index, 1)
@@ -71,12 +71,12 @@ const removeNames = function(ourNames, id){
 
 // ak zmažeme nejaké meno z localStorage, tak táto funkcia zabezpečí opätovné vypísanie localStorage (teda vypísanie bez zmazaného mena na stránke
 
-const toListAgain = function(){
+const toListAgain = () => {
     document.querySelector(".list-names").innerHTML = ""
 
     let newData = getSavedNames()
     
-    newData.forEach(function(onlyOneName){
+    newData.forEach((onlyOneName) => {
         const newContent = generateHTMLstructure(onlyOneName)
         document.querySelector(".list-names").appendChild(newContent)
     })
